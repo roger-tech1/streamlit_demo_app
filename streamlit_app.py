@@ -4,7 +4,6 @@ import os
 step_key = os.environ.get('STEP_API_KEY')
 st.set_page_config(page_title="BoM Verse Lookup")
 st.title('BoM Verse Lookup')
-from roger.qa import query_bom
 
 # step request function
 def step_request(input_query):
