@@ -14,6 +14,14 @@ step_key = os.environ.get('STEP_API_KEY')
 st.set_page_config(page_title="BoM Verse Lookup")
 st.title('BoM Verse Lookup')
 
+checks = st.columns(3)
+with checks[0]:
+    useBoM = st.checkbox('Book of Mormon', value=True)
+with checks[1]:
+    useNT = st.checkbox('New Testament', value=True)
+with checks[2]:
+    useOT = st.checkbox('Old Testament', value=True)
+
 
 # step request function
 def step_request(input_query):
@@ -25,7 +33,7 @@ def step_request(input_query):
     # formulate payload based on input query
     json_query = json.dumps(input_query)
     data = {
-        "input": f'{{"query": {json_query}}}',
+        "input": f'{{"query": {json_query}, "useBoM": "{str(useBoM)}", "useNT": "{str(useNT)}", "useOT": "{str(useOT)}"}}',
         "name": "MyExecution",
         "stateMachineArn": step_arn
     }
@@ -39,9 +47,33 @@ def step_request(input_query):
         try:
             step_response = response.json()
             output = json.loads(step_response['output'])
-            body = json.loads(output['body'])
-            result = body['result']
-            st.write(result)
+ 
+            # loop over returned volumes
+            for volume_data in output:
+                try:
+                    volume_name = volume_data['volume']
+                    st.write('---')
+                    st.write(f"""
+                    Results from volume: {volume_name}
+                    ---
+                    ---
+                    """)
+
+                    # loop over returned verses in result
+                    result = volume_data['result']
+                    if len(result) == 0:
+                        st.write('No results found')
+                    else:
+                        for verse_data in result:
+                            verse = verse_data['verse']
+                            st.write(f'**Verse**: {verse}')
+                            st.write(f'**Verse number**: {verse_data["verse_number"]}')
+                            st.write(f'**Chapter**: {verse_data["chapter"]}')
+                            st.write(f'**Book**: {verse_data["book"]}')
+                            st.write('---')
+                except Exception as e:
+                    print('Error unpacking volume data:', e)
+                    print('Volume data:', volume_data)
         except Exception as e:
             st.write('Error unpacking response:', e)
             st.write('Response:', step_response)
