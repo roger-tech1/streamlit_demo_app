@@ -11,8 +11,8 @@ step_arn = os.environ.get('STEP_ARN')
 step_key = os.environ.get('STEP_API_KEY')
 
 # load in streamlit
-st.set_page_config(page_title="BoM Verse Lookup")
-st.title('BoM Verse Lookup')
+st.set_page_config(page_title="Scripture Keyword Lookup API")
+st.title('Scripture Keyword Lookup API')
 
 checks = st.columns(3)
 with checks[0]:
@@ -47,6 +47,8 @@ def step_request(input_query):
         try:
             step_response = response.json()
             output = json.loads(step_response['output'])
+            
+            # print('Output:', output)
  
             # loop over returned volumes
             for volume_data in output:
@@ -65,8 +67,9 @@ def step_request(input_query):
                         st.write('No results found')
                     else:
                         for verse_data in result:
-                            verse = verse_data['verse']
+                            verse = verse_data['verse_content']
                             st.write(f'**Verse**: {verse}')
+                            st.write(f'**Word numbers**: {verse_data["word_numbers"]}')
                             st.write(f'**Verse number**: {verse_data["verse_number"]}')
                             st.write(f'**Chapter**: {verse_data["chapter"]}')
                             st.write(f'**Book**: {verse_data["book"]}')
@@ -82,7 +85,7 @@ def step_request(input_query):
 
 
 with st.form('my_form'):
-    text = st.text_area('Enter text:', 'Tell me the full verse that this snippet comes from - "And they came down and went forth upon the face of the earth"')
+    text = st.text_area('Enter word:', 'chicken')
     submitted = st.form_submit_button('Submit')
     if submitted:
         with st.spinner('Wait for it...'):
