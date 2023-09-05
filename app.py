@@ -1,6 +1,27 @@
 import streamlit as st
 
 
+st.header('scrollable text')
+
+### scrollable text ###
+
+text_content = """
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in odio nec turpis ultricies vehicula ac ut orci. Nullam auctor nisi et est semper blandit. Sed in interdum nulla. Vivamus ut facilisis dui. Fusce nec ex purus. Integer vel feugiat odio, at fermentum lectus.</p>
+<p>Phasellus fringilla justo eu orci faucibus, id iaculis purus varius. Maecenas a quam vitae urna suscipit egestas. Duis hendrerit, nunc id cursus sollicitudin, quam velit venenatis odio, in elementum ipsum erat vel sapien.</p>
+<!-- Add more text here -->
+"""
+
+scrollable_element = f"""
+    <div class="scroll-container">
+        {text_content}
+"""
+
+
+st.markdown(scrollable_element, unsafe_allow_html=True)
+
+
+### Contact Form ###
+
 st.header(':mailbox: User feedback')
 
 

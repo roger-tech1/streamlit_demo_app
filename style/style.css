@@ -24,3 +24,10 @@ input[type=text], input[type=email], textarea {
   button[type=submit]:hover {
     background-color: #45a049;
   }
+
+  .scroll-container {
+    border: 5px solid #ccc;
+    width: min(100% - 2rem, 600px);
+    margin-inline: auto;
+    overflow: scroll;
+}
