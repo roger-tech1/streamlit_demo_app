@@ -11,8 +11,11 @@ step_arn = os.environ.get('STEP_ARN')
 step_key = os.environ.get('STEP_API_KEY')
 
 # load in streamlit
-st.set_page_config(page_title="BoM Verse Lookup")
+st.set_page_config(
+    page_title="Vector Scripture Search",
+    page_icon="📚")
 st.title('BoM Verse Lookup')
+
 
 checks = st.columns(3)
 with checks[0]:
