@@ -18,6 +18,7 @@ def create_multiselect(container: st.container,
 
 
 def create_multiselect_container(toc_datapath):
+    # read in table of contents
     book_names, book_chunk_lookup, chunk_book_lookup = get_toc(toc_datapath)
 
     # create container 
