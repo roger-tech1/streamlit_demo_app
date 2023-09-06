@@ -5,7 +5,7 @@ from utilities.api_requests import step_request, unpack_response
 import os
 from dotenv import load_dotenv
 load_dotenv()
-STEP_ARN = os.environ.get('BOOK_OF_MORMON_KEYWORD_STEP_ARN')
+STEP_ARN = str(os.environ.get('BOOK_OF_MORMON_KEYWORD_STEP_ARN'))
 
 # setup page
 st.set_page_config(
@@ -18,7 +18,7 @@ st.title('Book of Mormon Keyword Search')
 
 # Create the relative path based on the parent directory
 parent_directory = os.path.dirname(os.path.dirname(__file__))
-toc_datapath = os.path.join(parent_directory, 'tocs/BookofMormon.json')
+toc_datapath = str(os.path.join(parent_directory, 'tocs/BookofMormon.json'))
 
 # create multiselect
 book_names, book_chunk_lookup, chunk_book_lookup, selected_options = create_multiselect_container(toc_datapath)

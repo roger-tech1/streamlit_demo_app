@@ -6,9 +6,9 @@ import requests
 
 # Load variables from .env file
 load_dotenv()
-STEP_ENDPOINT_URL = os.environ.get('STEP_ENDPOINT_URL')
-STEP_API_KEY = os.environ.get('STEP_API_KEY')
-BOOK_OF_MORMON_KEYWORD_STEP_ARN = os.environ.get('BOOK_OF_MORMON_KEYWORD_STEP_ARN')
+STEP_ENDPOINT_URL = str(os.environ.get('STEP_ENDPOINT_URL'))
+STEP_API_KEY = str(os.environ.get('STEP_API_KEY'))
+BOOK_OF_MORMON_KEYWORD_STEP_ARN = str(os.environ.get('BOOK_OF_MORMON_KEYWORD_STEP_ARN'))
 
 
 def prepare_request_data(selected_options, book_chunk_lookup, query_text, step_arn):
