@@ -5,22 +5,22 @@ from utilities.api_requests import step_request, unpack_response
 import os
 from dotenv import load_dotenv
 load_dotenv()
-STEP_ARN = os.environ.get('BOOK_OF_MORMON_KEYWORD_STEP_ARN')
+STEP_ARN = os.environ.get('KINGJAMES_NT_KEYWORD_STEP_ARN')
 
 # setup page
 st.set_page_config(
-    page_title="Book of Mormon Keyword Search",
+    page_title="King James New Testament Keyword Search",
     page_icon="📚"
     )
 
-st.title('Book of Mormon Keyword Search')
+st.title('King James New Testament Keyword Search')
 
 # create multiselect
-toc_datapath = 'tocs/BookofMormon.json'
+toc_datapath = 'tocs/KingJamesNT.json'
 book_names, book_chunk_lookup, chunk_book_lookup, selected_options = create_multiselect_container(toc_datapath)
 
 # start search form
-with st.form('Book of Mormon Keyword Search'):
+with st.form('King James New Testament Keyword Search'):
 
     # text area
     query_text = st.text_area('Enter keyword:', 'love')

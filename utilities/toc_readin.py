@@ -12,11 +12,10 @@ def get_toc(toc_datapath:str):
         # capitalize first letter of each word
         better_name = ' '.join(v[0].upper() + v[1:].lower() for v in name.split(' '))
         book_names.append(better_name)
-    book_numbers = [v['book_number'] for v in toc]
+    book_numbers = [v['book_number'] - 1 for v in toc]
 
     # create lookup dictionary consisting of book_name: book_number, and vice versa
     book_chunk_lookup = dict(zip(book_names, book_numbers))
     chunk_book_lookup = dict(zip(book_numbers, book_names))
-    
 
     return book_names, book_chunk_lookup, chunk_book_lookup

@@ -5,25 +5,26 @@ from utilities.api_requests import step_request, unpack_response
 import os
 from dotenv import load_dotenv
 load_dotenv()
-STEP_ARN = os.environ.get('BOOK_OF_MORMON_KEYWORD_STEP_ARN')
+STEP_ARN = os.environ.get('KINGJAMES_OT_EMBEDDING_STEP_ARN')
+
 
 # setup page
 st.set_page_config(
-    page_title="Book of Mormon Keyword Search",
+    page_title="King James Old Testament Vector Search",
     page_icon="📚"
     )
 
-st.title('Book of Mormon Keyword Search')
+st.title('King James Old Testament Vector Search')
 
 # create multiselect
-toc_datapath = 'tocs/BookofMormon.json'
+toc_datapath = 'tocs/KingJamesOT.json'
 book_names, book_chunk_lookup, chunk_book_lookup, selected_options = create_multiselect_container(toc_datapath)
 
 # start search form
-with st.form('Book of Mormon Keyword Search'):
+with st.form('King James Old Testament Vector Search'):
 
     # text area
-    query_text = st.text_area('Enter keyword:', 'love')
+    query_text = st.text_area('Enter verse snippet:', 'In the beginning')
 
     # submit button        
     submitted = st.form_submit_button('Submit')
@@ -33,12 +34,12 @@ with st.form('Book of Mormon Keyword Search'):
         print('you submitted the form')
         with st.spinner('Searching...'):
             # make request
-            response = step_request(selected_options, book_chunk_lookup,
-                                     query_text,
-                                     STEP_ARN)
+            response = step_request(selected_options, 
+                                    book_chunk_lookup, query_text, 
+                                    STEP_ARN)
 
             # unpack response 
-            result = unpack_response(response,
+            result = unpack_response(response, 
                                      chunk_book_lookup,
-                                     kind='keyword')
+                                     kind='vector')
     

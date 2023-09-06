@@ -5,7 +5,7 @@ from utilities.api_requests import step_request, unpack_response
 import os
 from dotenv import load_dotenv
 load_dotenv()
-BOOK_OF_MORMON_VECTOR_STEP_ARN = os.environ.get('BOOK_OF_MORMON_VECTOR_STEP_ARN')
+STEP_ARN = os.environ.get('BOOK_OF_MORMON_VECTOR_STEP_ARN')
 
 
 # setup page
@@ -24,7 +24,7 @@ book_names, book_chunk_lookup, chunk_book_lookup, selected_options = create_mult
 with st.form('Book of Mormon Keyword Search'):
 
     # text area
-    query_text = st.text_area('Enter text:', 'Tell me the full verse that this snippet comes from - "And they came down and went forth upon the face of the earth"')
+    query_text = st.text_area('Enter verse snippet:', 'And they came down and went forth upon the face of the earth')
 
     # submit button        
     submitted = st.form_submit_button('Submit')
@@ -36,7 +36,7 @@ with st.form('Book of Mormon Keyword Search'):
             # make request
             response = step_request(selected_options, 
                                     book_chunk_lookup, query_text, 
-                                    BOOK_OF_MORMON_VECTOR_STEP_ARN)
+                                    STEP_ARN)
 
             # unpack response 
             result = unpack_response(response, 
