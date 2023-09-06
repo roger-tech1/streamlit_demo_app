@@ -30,7 +30,6 @@ with st.form('King James Old Testament Keyword Search'):
 
     # check for submission
     if submitted:
-        print('you submitted the form')
         with st.spinner('Searching...'):
             # make request
             response = step_request(selected_options, book_chunk_lookup,

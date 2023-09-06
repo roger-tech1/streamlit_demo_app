@@ -31,7 +31,6 @@ with st.form('Book of Mormon Keyword Search'):
 
     # check for submission
     if submitted:
-        print('you submitted the form')
         with st.spinner('Searching...'):
             # make request
             response = step_request(selected_options, 

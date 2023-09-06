@@ -24,14 +24,13 @@ book_names, book_chunk_lookup, chunk_book_lookup, selected_options = create_mult
 with st.form('King James Old Testament Vector Search'):
 
     # text area
-    query_text = st.text_area('Enter verse snippet:', 'In the beginning')
+    query_text = st.text_area('Enter verse snippet:', 'At the start god made')
 
     # submit button        
     submitted = st.form_submit_button('Submit')
 
     # check for submission
     if submitted:
-        print('you submitted the form')
         with st.spinner('Searching...'):
             # make request
             response = step_request(selected_options, 
