@@ -1,0 +1,150 @@
+[
+    {
+    "book_number": 1,
+    "book_name": "The First Book of Moses: Called Genesis"
+    },
+    {
+    "book_number": 2,
+    "book_name": "The Second Book of Moses: Called Exodus"
+    },
+    {
+    "book_number": 3,
+    "book_name": "The Third Book of Moses: Called Leviticus"
+    },
+    {
+    "book_number": 4,
+    "book_name": "The Fourth Book of Moses: Called Numbers"
+    },
+    {
+    "book_number": 5,
+    "book_name": "The Fifth Book of Moses: Called Deuteronomy"
+    },
+    {
+    "book_number": 6,
+    "book_name": "The Book of Joshua"
+    },
+    {
+    "book_number": 7,
+    "book_name": "The Book of Judges"
+    },
+    {
+    "book_number": 8,
+    "book_name": "The Book of Ruth"
+    },
+    {
+    "book_number": 9,
+    "book_name": "The First Book of the Kings"
+    },
+    {
+    "book_number": 10,
+    "book_name": "The Second Book of the Kings"
+    },
+    {
+    "book_number": 11,
+    "book_name": "The First Book of the Chronicles"
+    },
+    {
+    "book_number": 12,
+    "book_name": "The Second Book of the Chronicles"
+    },
+    {
+    "book_number": 13,
+    "book_name": "Ezra"
+    },
+    {
+    "book_number": 14,
+    "book_name": "The Book of Nehemiah"
+    },
+    {
+    "book_number": 15,
+    "book_name": "The Book of Esther"
+    },
+    {
+    "book_number": 16,
+    "book_name": "The Book of Job"
+    },
+    {
+    "book_number": 17,
+    "book_name": "The Book of Psalms"
+    },
+    {
+    "book_number": 18,
+    "book_name": "The Proverbs"
+    },
+    {
+    "book_number": 19,
+    "book_name": "Ecclesiastes"
+    },
+    {
+    "book_number": 20,
+    "book_name": "The Song of Solomon"
+    },
+    {
+    "book_number": 21,
+    "book_name": "The Book of the Prophet Isaiah"
+    },
+    {
+    "book_number": 22,
+    "book_name": "The Book of the Prophet Jeremiah"
+    },
+    {
+    "book_number": 23,
+    "book_name": "The Lamentations of Jeremiah"
+    },
+    {
+    "book_number": 24,
+    "book_name": "The Book of the Prophet Ezekiel"
+    },
+    {
+    "book_number": 25,
+    "book_name": "The Book of Daniel"
+    },
+    {
+    "book_number": 26,
+    "book_name": "Hosea"
+    },
+    {
+    "book_number": 27,
+    "book_name": "Joel"
+    },
+    {
+    "book_number": 28,
+    "book_name": "Amos"
+    },
+    {
+    "book_number": 29,
+    "book_name": "Obadiah"
+    },
+    {
+    "book_number": 30,
+    "book_name": "Jonah"
+    },
+    {
+    "book_number": 31,
+    "book_name": "Micah"
+    },
+    {
+    "book_number": 32,
+    "book_name": "Nahum"
+    },
+    {
+    "book_number": 33,
+    "book_name": "Habakkuk"
+    },
+    {
+    "book_number": 34,
+    "book_name": "Zephaniah"
+    },
+    {
+    "book_number": 35,
+    "book_name": "Haggai"
+    },
+    {
+    "book_number": 36,
+    "book_name": "Zechariah"
+    },
+    {
+    "book_number": 37,
+    "book_name": "Malachi"
+    }
+    ]
