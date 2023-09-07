@@ -16,10 +16,19 @@ st.set_page_config(
 
 st.title('King James Old Testament Vector Search')
 
-# create multiselect
+
+
+# state name for this page 
+state_name = 'KingJamesOTVectorSearch'
+
+# Create the relative path based on the parent directory
 parent_directory = os.path.dirname(os.path.dirname(__file__))
 toc_datapath = str(os.path.join(parent_directory, 'tocs/KingJamesOT.json'))
-book_names, book_chunk_lookup, chunk_book_lookup, selected_options = create_multiselect_container(toc_datapath)
+
+# create multiselect
+book_names, book_chunk_lookup, chunk_book_lookup, selected_options = create_multiselect_container(toc_datapath,            
+                                                                                                  state_name)
+
 
 # start search form
 with st.form('King James Old Testament Vector Search'):

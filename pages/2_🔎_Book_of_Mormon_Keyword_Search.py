@@ -16,15 +16,20 @@ st.set_page_config(
     page_icon="📚"
     )
 
+
+
 st.title('Book of Mormon Keyword Search')
 
+# state name for this page 
+state_name = 'BookofMormonKeywordSearch'
 
 # Create the relative path based on the parent directory
 parent_directory = os.path.dirname(os.path.dirname(__file__))
 toc_datapath = str(os.path.join(parent_directory, 'tocs/BookofMormon.json'))
 
 # create multiselect
-book_names, book_chunk_lookup, chunk_book_lookup, selected_options = create_multiselect_container(toc_datapath)
+book_names, book_chunk_lookup, chunk_book_lookup, selected_options = create_multiselect_container(toc_datapath,
+                                                                                                  state_name)
 
 # start search form
 with st.form('Book of Mormon Keyword Search'):
