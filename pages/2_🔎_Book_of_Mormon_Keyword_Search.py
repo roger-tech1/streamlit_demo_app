@@ -7,6 +7,9 @@ from dotenv import load_dotenv
 load_dotenv()
 STEP_ARN = str(os.environ.get('BOOK_OF_MORMON_KEYWORD_STEP_ARN'))
 
+
+
+
 # setup page
 st.set_page_config(
     page_title="Book of Mormon Keyword Search",
