@@ -1,6 +1,6 @@
 ---
 title: Book of Mormon App V0
-emoji: 🦀
+emoji: 👋
 colorFrom: gray
 colorTo: indigo
 sdk: streamlit

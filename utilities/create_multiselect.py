@@ -12,6 +12,11 @@ def create_multiselect(container: st.container,
     if f'selected_options_{state_name}' not in st.session_state:
         st.session_state[f'selected_options_{state_name}'] = []
 
+    def multiselect_callback():
+        if st.session_state[f"checkbox_{state_name}"] == True:
+            st.session_state[f"checkbox_{state_name}"] = False
+
+
     # define multi-select with session state selected options
     selected_options = container.multiselect(
         label= "Select one or more books to search",
@@ -19,7 +24,8 @@ def create_multiselect(container: st.container,
         key=f"multiselect_{state_name}",
         placeholder="Select one or more books to search",
         default =st.session_state[f'selected_options_{state_name}'],
-        max_selections=len(book_names)
+        max_selections=len(book_names),
+        on_change=multiselect_callback
     )
 
     # define checkbox callback
@@ -42,7 +48,7 @@ def create_multiselect(container: st.container,
     # create checkbox to select all books with statr
     all= st.checkbox(label="Select all", 
                      value = st.session_state[f"checkbox_{state_name}"],
-                     on_change=checkbox_callback)    
+                     on_change=checkbox_callback)   
 
     return selected_options
 
