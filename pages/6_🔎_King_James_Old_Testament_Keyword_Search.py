@@ -31,7 +31,7 @@ book_names, book_chunk_lookup, chunk_book_lookup, selected_options = create_mult
 with st.form('King James Old Testament Keyword Search'):
 
     # text area
-    query_text = st.text_area('Enter keyword:', 'love')
+    query_text = st.text_area('Enter keyword(s) separated by spaces:', 'lord heaven')
 
     # submit button        
     submitted = st.form_submit_button('Submit')

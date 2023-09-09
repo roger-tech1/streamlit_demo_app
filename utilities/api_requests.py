@@ -55,7 +55,6 @@ def display_results(book_names,
     st.write(f"""
     ## Results
     ---
-    ---
     """)
     
     # check for results
