@@ -16,13 +16,12 @@ st.set_page_config(
 
 st.title('King James New Testament Vector Search')
 
-
 # state name for this page 
 state_name = 'KingJamesNTVectorSearch'
 
 # Create the relative path based on the parent directory
 parent_directory = os.path.dirname(os.path.dirname(__file__))
-toc_datapath = str(os.path.join(parent_directory, 'tocs/KingJamesNT.json'))
+toc_datapath = parent_directory + '/tocs/KingJamesNT.json'
 
 # create multiselect
 book_names, book_chunk_lookup, chunk_book_lookup, selected_options = create_multiselect_container(toc_datapath,            

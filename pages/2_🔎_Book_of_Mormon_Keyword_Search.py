@@ -7,16 +7,11 @@ from dotenv import load_dotenv
 load_dotenv()
 STEP_ARN = str(os.environ.get('BOOK_OF_MORMON_KEYWORD_STEP_ARN'))
 
-
-
-
 # setup page
 st.set_page_config(
     page_title="Book of Mormon Keyword Search",
     page_icon="📚"
     )
-
-
 
 st.title('Book of Mormon Keyword Search')
 
@@ -25,7 +20,28 @@ state_name = 'BookofMormonKeywordSearch'
 
 # Create the relative path based on the parent directory
 parent_directory = os.path.dirname(os.path.dirname(__file__))
-toc_datapath = str(os.path.join(parent_directory, 'tocs/BookofMormon.json'))
+toc_datapath = parent_directory + '/tocs/BookOfMormon.json'
+
+# list all files in parent_directory 
+print(f'parent_directory: {parent_directory}')
+print(os.listdir(parent_directory + '/tocs'))
+ 
+
+# check if toc_datapath file exists
+if not os.path.isfile(toc_datapath):
+    # if not, download from s3
+    print('FAIL: toc_datapath does not exist')
+    # download_toc_datapath_from_s3(toc_datapath)
+
+# print(type(toc_datapath))
+# print(type(test))
+
+# print(toc_datapath)
+# print(test)
+
+# print(len(toc_datapath))
+# print(len(test))
+
 
 # create multiselect
 book_names, book_chunk_lookup, chunk_book_lookup, selected_options = create_multiselect_container(toc_datapath,
