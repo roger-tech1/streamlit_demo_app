@@ -70,6 +70,14 @@ def display_results(book_names,
             st.write('No results found for this book.')
             continue
 
+        # TEMPORARY HACK - message for maximum keyword results
+        if len(volume_results) == 20:
+            st.write('======'*10)
+            st.write('WARNING: More than 20 results exist for this book.  Showing first 20 results only.')
+            st.write('======'*10)
+            st.write('---')
+
+
         for datapoint in volume_results:
             if len(datapoint) > 0:
                 try:
