@@ -39,14 +39,18 @@ with st.form('King James New Testament Vector Search'):
 
     # check for submission
     if submitted:
-        with st.spinner('Searching...'):
-            # make request
-            response = step_request(selected_options, 
-                                    book_chunk_lookup, query_text, 
-                                    STEP_ARN)
+        # check for empty selected_options 
+        if len(selected_options) == 0:
+            st.write('Please select at least one book.')
+        else:
+            with st.spinner('Searching...'):
+                # make request
+                response = step_request(selected_options, 
+                                        book_chunk_lookup, query_text, 
+                                        STEP_ARN)
 
-            # unpack response 
-            result = unpack_response(response, 
-                                     chunk_book_lookup,
-                                     kind='vector')
+                # unpack response 
+                result = unpack_response(response, 
+                                        chunk_book_lookup,
+                                        kind='vector')
     
