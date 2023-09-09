@@ -49,16 +49,16 @@ def step_request(selected_options, book_chunk_lookup, query_text, step_arn):
     return response
 
 
-def display_results(output, chunk_book_lookup):
+def display_results(book_names,
+                    output):
+    # check for results
     if len(output) == 0:
         st.write('No results found.')
         return None
     
     # loop over returned volumes
-    for volume_results in output:
-        book_number = volume_results[0]['book_number']
-        book_name = chunk_book_lookup[book_number-1]
-
+    for ind,volume_results in enumerate(output):
+        book_name = book_names[ind]
         st.write('---')
         st.write(f"""
         Results from book: {book_name}
@@ -66,42 +66,49 @@ def display_results(output, chunk_book_lookup):
         ---
         """)
         
+        if len(volume_results) == 0:
+            st.write('No results found for this book.')
+            continue
+
         for datapoint in volume_results:
-            try:
-                # unpack datapoint
-                book_number = datapoint['book_number']
-                chapter_number = datapoint['chapter_number']
-                verse_number = datapoint['verse_number']
-                try: 
-                    verse = datapoint['verse_content']
-                except:
-                    verse = datapoint['content']
+            if len(datapoint) > 0:
+                try:
+                    # unpack datapoint
+                    book_number = datapoint['book_number']
+                    chapter_number = datapoint['chapter_number']
+                    verse_number = datapoint['verse_number']
+                    try: 
+                        verse = datapoint['verse_content']
+                    except:
+                        verse = datapoint['content']
 
-                try:
-                    word_numbers = datapoint['word_numbers']
-                except:
-                    pass
-                try:
-                    score = datapoint['score']
-                except:
-                    pass
+                    try:
+                        word_numbers = datapoint['word_numbers']
+                    except:
+                        pass
+                    try:
+                        score = datapoint['score']
+                    except:
+                        pass
 
 
-                st.write(f'**Verse**: {verse}')
-                st.write(f'**Verse number**: {verse_number}')
-                st.write(f'**Chapter**: {chapter_number}')
-                try:
-                    st.write(f'**Word numbers**: {word_numbers}')
-                except:
-                    pass
-                try:
-                    st.write(f'**Score**: {score}')
-                except:
-                    pass
-                st.write('---')
-            except Exception as e:
-                print('Error unpacking volume data:', e)
-                print('datapoint:', datapoint)
+                    st.write(f'**Verse**: {verse}')
+                    st.write(f'**Verse number**: {verse_number}')
+                    st.write(f'**Chapter**: {chapter_number}')
+                    try:
+                        st.write(f'**Word numbers**: {word_numbers}')
+                    except:
+                        pass
+                    try:
+                        st.write(f'**Score**: {score}')
+                    except:
+                        pass
+                    st.write('---')
+                except Exception as e:
+                    print('Error unpacking volume data:', e)
+                    print('datapoint:', datapoint)
+            else: 
+                st.write('No results found for this book.')
 
 # unpack response for keyword
 def unpack_response(response, 
@@ -113,6 +120,12 @@ def unpack_response(response,
         try:
             # unpack response
             step_response = response.json()
+            input = json.loads(step_response['input'])
+            input.pop('query')
+            input = list(input.values())
+            input = [i for i in range(len(input)) if input[i] == True]
+            book_names = [chunk_book_lookup[i] for i in input]
+
             output = json.loads(step_response['output'])['query_results']
             output = [o for o in output if isinstance(o, dict)]
             query_results = []
@@ -130,7 +143,8 @@ def unpack_response(response,
                         pass
 
             # display results
-            display_results(query_results, chunk_book_lookup)
+            display_results(book_names,
+                            query_results)
             return output
         except Exception as e:
             print('Error unpacking response:', e)

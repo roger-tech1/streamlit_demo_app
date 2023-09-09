@@ -39,12 +39,11 @@ with st.form('Book of Mormon Keyword Search'):
     if submitted:
         with st.spinner('Searching...'):
             # make request
-            response = step_request(selected_options, book_chunk_lookup,
-                                     query_text,
-                                     STEP_ARN)
-
+            response = step_request(selected_options, 
+                                    book_chunk_lookup,
+                                    query_text,
+                                    STEP_ARN)
             # unpack response 
             result = unpack_response(response,
                                      chunk_book_lookup,
                                      kind='keyword')
-    
