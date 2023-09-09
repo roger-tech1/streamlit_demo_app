@@ -1,6 +1,6 @@
 import requests
 import os
-import json
+import re
 import streamlit as st
 from dotenv import load_dotenv
 
@@ -37,7 +37,14 @@ def lambda_request(word):
             output = _response['data']
             if len(output) == 0:
                 st.write('No results found.')
+                return
             else:
+                # find maximum length of definitions 
+                max_def_len = max([len(d['definitions']) for d in output])
+                if max_def_len == 0:
+                    st.write('No results found.')
+                    return
+
                 for d in output:
                     keys = list(d.keys())
                     values = list(d.values())
@@ -51,9 +58,23 @@ def lambda_request(word):
         st.write('Request failed with status code:', response.status_code, 'Response:', response.text)
 
 
+def preprocess_text(text):
+    # Remove punctuation and specified symbols using regular expressions
+    text = re.sub(r'[^\w\s]|[\n\t\r\f\v\u2028\u2029]', '', text)
+
+    # Convert text to lowercase
+    text = text.lower()
+
+    return text
+
 with st.form('my_form'):
-    text = st.text_area('Enter text:', 'caramel').strip()
+    # input query text
+    text = st.text_area('Enter text:', 'caramel')
+
+    # cleanup text - remove punctuation, lowercase, newline symbols, etc., use regular expressions
+    text = preprocess_text(text)
+
     submitted = st.form_submit_button('Submit')
     if submitted:
-        with st.spinner('Wait for it...'):
+        with st.spinner('Searching...'):
             lambda_request(text)
