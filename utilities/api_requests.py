@@ -51,6 +51,13 @@ def step_request(selected_options, book_chunk_lookup, query_text, step_arn):
 
 def display_results(book_names,
                     output):
+    st.write('---')
+    st.write(f"""
+    ## Results
+    ---
+    ---
+    """)
+    
     # check for results
     if len(output) == 0:
         st.write('No results found.')
@@ -59,64 +66,61 @@ def display_results(book_names,
     # loop over returned volumes
     for ind,volume_results in enumerate(output):
         book_name = book_names[ind]
-        st.write('---')
         st.write(f"""
-        Results from book: {book_name}
-        ---
-        ---
+        ### {book_name}
         """)
-        
+
         if len(volume_results) == 0:
             st.write('No results found for this book.')
             continue
-
-        # TEMPORARY HACK - message for maximum keyword results
+    
         if len(volume_results) == 20:
-            st.write('======'*10)
             st.write('WARNING: More than 20 results exist for this book.  Showing first 20 results only.')
-            st.write('======'*10)
-            st.write('---')
+
+        with st.expander(f'Number of results: {len(volume_results)}'):
+            # TEMPORARY HACK - message for maximum keyword results
 
 
-        for datapoint in volume_results:
-            if len(datapoint) > 0:
-                try:
-                    # unpack datapoint
-                    book_number = datapoint['book_number']
-                    chapter_number = datapoint['chapter_number']
-                    verse_number = datapoint['verse_number']
-                    try: 
-                        verse = datapoint['verse_content']
-                    except:
-                        verse = datapoint['content']
 
+            for datapoint in volume_results:
+                if len(datapoint) > 0:
                     try:
-                        word_numbers = datapoint['word_numbers']
-                    except:
-                        pass
-                    try:
-                        score = datapoint['score']
-                    except:
-                        pass
+                        # unpack datapoint
+                        book_number = datapoint['book_number']
+                        chapter_number = datapoint['chapter_number']
+                        verse_number = datapoint['verse_number']
+                        try: 
+                            verse = datapoint['verse_content']
+                        except:
+                            verse = datapoint['content']
+
+                        try:
+                            word_numbers = datapoint['word_numbers']
+                        except:
+                            pass
+                        try:
+                            score = datapoint['score']
+                        except:
+                            pass
 
 
-                    st.write(f'**Verse**: {verse}')
-                    st.write(f'**Verse number**: {verse_number}')
-                    st.write(f'**Chapter**: {chapter_number}')
-                    try:
-                        st.write(f'**Word numbers**: {word_numbers}')
-                    except:
-                        pass
-                    try:
-                        st.write(f'**Score**: {score}')
-                    except:
-                        pass
-                    st.write('---')
-                except Exception as e:
-                    print('Error unpacking volume data:', e)
-                    print('datapoint:', datapoint)
-            else: 
-                st.write('No results found for this book.')
+                        st.write(f'**Verse**: {verse}')
+                        st.write(f'**Verse number**: {verse_number}')
+                        st.write(f'**Chapter**: {chapter_number}')
+                        try:
+                            st.write(f'**Word numbers**: {word_numbers}')
+                        except:
+                            pass
+                        try:
+                            st.write(f'**Score**: {score}')
+                        except:
+                            pass
+                        st.write('---')
+                    except Exception as e:
+                        print('Error unpacking volume data:', e)
+                        print('datapoint:', datapoint)
+                else: 
+                    st.write('No results found for this book.')
 
 # unpack response for keyword
 def unpack_response(response, 
