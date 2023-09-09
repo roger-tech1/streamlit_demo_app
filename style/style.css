@@ -31,3 +31,18 @@ input[type=text], input[type=email], textarea {
     margin-inline: auto;
     overflow: scroll;
 }
+
+button[type = "button"] {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type = "button"]:hover {
+    background-color: #45a049;
+}
+ 
+ 

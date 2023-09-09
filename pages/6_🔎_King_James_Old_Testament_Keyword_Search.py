@@ -1,5 +1,4 @@
 import streamlit as st
-from utilities.toc_readin import get_toc
 from utilities.create_multiselect import create_multiselect_container
 from utilities.api_requests import step_request, unpack_response
 import os

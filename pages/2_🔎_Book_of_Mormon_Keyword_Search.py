@@ -1,5 +1,4 @@
 import streamlit as st
-from utilities.toc_readin import get_toc
 from utilities.create_multiselect import create_multiselect_container
 from utilities.api_requests import step_request, unpack_response
 import os
@@ -30,7 +29,7 @@ book_names, book_chunk_lookup, chunk_book_lookup, selected_options = create_mult
 with st.form('Book of Mormon Keyword Search'):
 
     # text area
-    query_text = st.text_area('Enter keyword(s) separated by spaces:', 'lord heaven')
+    query_text = st.text_area('Enter keyword(s) separated by spaces:', 'lord nephi sam')
 
     # submit button        
     submitted = st.form_submit_button('Submit')

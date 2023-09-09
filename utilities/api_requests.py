@@ -77,9 +77,8 @@ def display_results(book_names,
             st.write('WARNING: More than 20 results exist for this book.  Showing first 20 results only.')
 
         with st.expander(f'Number of results: {len(volume_results)}'):
+            st.write('---')
             # TEMPORARY HACK - message for maximum keyword results
-
-
 
             for datapoint in volume_results:
                 if len(datapoint) > 0:
@@ -88,6 +87,7 @@ def display_results(book_names,
                         book_number = datapoint['book_number']
                         chapter_number = datapoint['chapter_number']
                         verse_number = datapoint['verse_number']
+                        word_numbers = None
                         try: 
                             verse = datapoint['verse_content']
                         except:
@@ -102,8 +102,26 @@ def display_results(book_names,
                         except:
                             pass
 
+                        # if word_numbers is not None, then this is a keyword search
+                        # split words, write out all words using markdown, coloring the keywords yellow
+                        if word_numbers is not None:
+                            word_numbers_ints = word_numbers.split(',')
+                            word_numbers = [int(i) for i in word_numbers_ints]
+                            word_numbers.sort()
+                            words = verse.split(' ')
 
-                        st.write(f'**Verse**: {verse}')
+                            report_verse = ''
+                            for i,word in enumerate(words):
+                                if i in word_numbers:
+                                    report_verse += f' :blue[{word}]'
+                                else:
+                                    report_verse += f' {word}'
+                            st.markdown(f'**Verse**: {report_verse}')
+                       
+                        else:
+                            st.write(f'**Verse**: {verse}')
+
+
                         st.write(f'**Verse number**: {verse_number}')
                         st.write(f'**Chapter**: {chapter_number}')
                         try:
