@@ -60,7 +60,11 @@ def create_multiselect_container(toc_datapath: str,
     book_names, book_chunk_lookup, chunk_book_lookup = get_toc(toc_datapath)
     
     # create expander for multiselect
-    st.subheader('Select one or more books to search')
+    if st.session_state[f"verse_search_toggle"] == True:
+        st.subheader('Select a single book to search')
+    else:
+        st.subheader('Select one or more books to search')
+
     with st.expander(label='Book selection options:', expanded=True):
 
         # create container 

@@ -243,8 +243,8 @@ with st.form(key='Search Form'):
                                             st.session_state['STEP_ARN'])
                     # unpack response 
                     result = unpack_response(response,
-                                            chunk_book_lookup,
-                                            kind=text_search_type)
+                                             chunk_book_lookup,
+                                             kind=text_search_type)
     elif st.session_state[f"verse_search_toggle"] == True:         
         # submit button        
         submitted = st.form_submit_button('Submit')
