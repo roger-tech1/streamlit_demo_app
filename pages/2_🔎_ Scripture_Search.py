@@ -183,9 +183,6 @@ st.text("")
 ### create search form ###
 with st.form(key='Search Form'):
 
-    # submit button        
-    submitted = st.form_submit_button('Submit')
-
     # set text area based on search type
     if st.session_state[f"keyword_search_toggle"] == True:
         if st.session_state['selected_volume'] == 'BookOfMormon':
@@ -209,7 +206,9 @@ with st.form(key='Search Form'):
         if st.session_state[f"vector_search_toggle"] == True:
             text_search_type = 'vector'
          
-
+        # submit button        
+        submitted = st.form_submit_button('Submit')
+        
         # set submission action
         if submitted:
             # check for empty selected_options 
