@@ -62,6 +62,10 @@ def display_results(book_names,
         st.write('No results found.')
         return None
     
+    # TEMPORARY HACK - for VERSE SEARCH check type of output - if type is dict, turn into list
+    if isinstance(output, dict):
+        output = [output]
+
     # loop over returned volumes
     for ind,volume_results in enumerate(output):
         book_name = book_names[ind]
@@ -69,16 +73,24 @@ def display_results(book_names,
         ### {book_name}
         """)
 
+        # TEMPORARY HACK - for VERSE SEARCH check type of output - if type is dict, turn into list
+        if isinstance(volume_results, dict):
+            volume_results = [volume_results]
+
         if len(volume_results) == 0:
             st.write('No results found for this book.')
             continue
-    
+
+        # TEMPORARY HACK - message for maximum keyword results
         if len(volume_results) == 20:
             st.write('WARNING: More than 20 results exist for this book.  Showing first 20 results only.')
 
-        with st.expander(f'Number of results: {len(volume_results)}'):
+        # set expanded value based on length of volume_results
+        expanded = False
+        if len(volume_results) == 1:
+            expanded = True
+        with st.expander(f'Number of results: {len(volume_results)}', expanded=expanded):
             st.write('---')
-            # TEMPORARY HACK - message for maximum keyword results
 
             for datapoint in volume_results:
                 if len(datapoint) > 0:
@@ -121,11 +133,12 @@ def display_results(book_names,
                         else:
                             st.write(f'**Verse**: {verse}')
 
-
+                        st.write(f'**Chapter number**: {chapter_number}')
                         st.write(f'**Verse number**: {verse_number}')
-                        st.write(f'**Chapter**: {chapter_number}')
                         try:
-                            st.write(f'**Word numbers**: {word_numbers}')
+                            # if word_numbers is not None
+                            if word_numbers is not None:
+                                st.write(f'**Word numbers**: {word_numbers}')
                         except:
                             pass
                         try:

@@ -25,7 +25,8 @@ def create_multiselect(container: st.container,
         placeholder="Select one or more books to search",
         default =st.session_state[f'selected_options_{state_name}'],
         max_selections=len(book_names),
-        on_change=multiselect_callback
+        on_change=multiselect_callback,
+        label_visibility='collapsed'
     )
 
     # define checkbox callback

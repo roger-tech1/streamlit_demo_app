@@ -76,20 +76,20 @@ with st.expander(label='Scripture options:', expanded=True):
         # select scripture 
         bom_col, nt_col, ot_col = st.columns(3)
         with bom_col:
-            bom_search_toggle = st.toggle('Book of Mormon', 
-                                            value=st.session_state[f"bom_search_toggle"], 
-                                            key='bom_search_toggle',
-                                            on_change=bom_search_toggle_callback)
+            bom_search_toggle = st.toggle(label='Book of Mormon', 
+                                          value=st.session_state[f"bom_search_toggle"], 
+                                          key='bom_search_toggle',
+                                          on_change=bom_search_toggle_callback)
         with nt_col:
-            nt_search_toggle = st.toggle('King James - New Testament',
-                                            value=st.session_state[f"nt_search_toggle"],
-                                            key='nt_search_toggle',
-                                            on_change=nt_search_toggle_callback)
+            nt_search_toggle = st.toggle(label='King James - New Testament',
+                                         value=st.session_state[f"nt_search_toggle"],
+                                         key='nt_search_toggle',
+                                         on_change=nt_search_toggle_callback)
         with ot_col:
-            ot_search_toggle = st.toggle('King James - Old Testament',
-                                            value=st.session_state[f"ot_search_toggle"],
-                                            key='ot_search_toggle',
-                                            on_change=ot_search_toggle_callback)
+            ot_search_toggle = st.toggle(label='King James - Old Testament',
+                                         value=st.session_state[f"ot_search_toggle"],
+                                         key='ot_search_toggle',
+                                         on_change=ot_search_toggle_callback)
 st.write('---')
 
      
@@ -142,6 +142,14 @@ with st.expander(label='Search options:', expanded=True):
                 st.session_state[f"keyword_search_toggle"] = False
                 st.session_state[f"vector_search_toggle"]  = False
 
+                if st.session_state['selected_volume'] == 'BookOfMormon':
+                    st.session_state['STEP_ARN'] = BOM_KEYWORD_STEP_ARN
+                elif st.session_state['selected_volume'] == 'KingJamesNT':
+                    st.session_state['STEP_ARN'] = NT_KEYWORD_STEP_ARN
+                elif st.session_state['selected_volume'] == 'KingJamesOT':
+                    st.session_state['STEP_ARN'] = OT_KEYWORD_STEP_ARN
+
+
         # select search type
         keyword_col, vector_col, verse_col = st.columns(3)
         with keyword_col:
@@ -161,6 +169,14 @@ with st.expander(label='Search options:', expanded=True):
                                             on_change=verse_search_toggle_callback)
 st.write('---')
 
+### initialize state and callbacks for number_input chapter and verse ###
+if f"chapter_number" not in st.session_state:
+    st.session_state['chapter_number'] = 1
+if f"verse_number" not in st.session_state:
+    st.session_state['verse_number'] = 1
+
+chapter_number = 1
+verse_number = 1
 
 ### create multi select books ###
 def create_multi_select():
@@ -200,6 +216,10 @@ with st.form(key='Search Form'):
         elif st.session_state['selected_volume'] == 'KingJamesOT':
             query_text = st.text_area(label='Enter verse snippet:', placeholder='For example - "At the start god made"')
 
+    elif st.session_state[f"verse_search_toggle"] == True:
+            chapter_number = st.number_input(label='Enter chapter number:', value = 1, step=1, min_value=1, max_value=40)
+            verse_number = st.number_input(label='Enter verse number:', value = 1, step=1, min_value=1, max_value=100)
+
     # set submit button based on search type
     if st.session_state[f"keyword_search_toggle"] == True or st.session_state[f"vector_search_toggle"] == True:
         text_search_type = 'keyword'
@@ -225,3 +245,35 @@ with st.form(key='Search Form'):
                     result = unpack_response(response,
                                             chunk_book_lookup,
                                             kind=text_search_type)
+    elif st.session_state[f"verse_search_toggle"] == True:         
+        # submit button        
+        submitted = st.form_submit_button('Submit')
+        
+        # set submission action
+        if submitted:
+
+            # check for empty selected_options 
+            if len(selected_options) == 0:
+                st.write('Please select at least one book.')
+            elif len(selected_options) > 1:
+                st.write('Please select only one book.')
+            else:
+                # unpack book name from selected_options 
+                book_name = selected_options[0]
+
+                # convert book_name to book_number using book_chunk_lookup
+                book_number = book_chunk_lookup[book_name] + 1
+
+                # formulate book.chapter.verse query string
+                query_text = f'{book_number}.{chapter_number}.{verse_number}'
+                with st.spinner('Searching...'):
+                    # make request
+                    response = step_request(selected_options, 
+                                            book_chunk_lookup,
+                                            query_text,
+                                            st.session_state['STEP_ARN'])
+
+                    # unpack response 
+                    result = unpack_response(response,
+                                            chunk_book_lookup,
+                                            kind='keyword')
