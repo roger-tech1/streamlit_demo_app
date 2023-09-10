@@ -186,19 +186,19 @@ with st.form(key='Search Form'):
     # set text area based on search type
     if st.session_state[f"keyword_search_toggle"] == True:
         if st.session_state['selected_volume'] == 'BookOfMormon':
-            query_text = st.text_area('Enter keyword(s) separated by spaces:', 'lord nephi sam')
+            query_text = st.text_area(label='Enter keyword(s) separated by spaces:',placeholder='For example -"lord nephi sam"')
         elif st.session_state['selected_volume'] == 'KingJamesNT':
-            query_text = st.text_area('Enter keyword(s) separated by spaces:', 'lord heaven')
+            query_text = st.text_area(label='Enter keyword(s) separated by spaces:', placeholder='For example - "lord heaven"')
         elif st.session_state['selected_volume'] == 'KingJamesOT':
-            query_text = st.text_area('Enter keyword(s) separated by spaces:', 'lord heaven')
+            query_text = st.text_area(label='Enter keyword(s) separated by spaces:', placeholder='For example - "lord heaven"')
 
     elif st.session_state[f"vector_search_toggle"] == True:
         if st.session_state['selected_volume'] == 'BookOfMormon':
-            query_text = st.text_area('Enter verse snippet:', 'And they came down and went forth upon the face of the earth')
+            query_text = st.text_area(label='Enter verse snippet:', placeholder='For example - "And they came down and went forth upon the face of the earth"')
         elif st.session_state['selected_volume'] == 'KingJamesNT':
-            query_text = st.text_area('Enter verse snippet:', 'At once we see via a dark glass but someday we will see each other clearly')
+            query_text = st.text_area(label='Enter verse snippet:', placeholder='For example - "At once we see via a dark glass but someday we will see each other clearly"')
         elif st.session_state['selected_volume'] == 'KingJamesOT':
-            query_text = st.text_area('Enter verse snippet:', 'At the start god made')
+            query_text = st.text_area(label='Enter verse snippet:', placeholder='For example - "At the start god made"')
 
     # set submit button based on search type
     if st.session_state[f"keyword_search_toggle"] == True or st.session_state[f"vector_search_toggle"] == True:
