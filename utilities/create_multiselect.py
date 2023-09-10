@@ -19,7 +19,7 @@ def create_multiselect(container: st.container,
 
     # define multi-select with session state selected options
     selected_options = container.multiselect(
-        label= "Select one or more books to search",
+        label= "",
         options=book_names,
         key=f"multiselect_{state_name}",
         placeholder="Select one or more books to search",
@@ -55,6 +55,8 @@ def create_multiselect(container: st.container,
 
 def create_multiselect_container(toc_datapath: str,
                                  state_name: str):
+    st.subheader('Select one or more books to search')
+
     # read in table of contents
     book_names, book_chunk_lookup, chunk_book_lookup = get_toc(toc_datapath)
 
