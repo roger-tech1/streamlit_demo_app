@@ -20,17 +20,24 @@ OT_KEYWORD_STEP_ARN = str(os.environ.get('KINGJAMES_OT_KEYWORD_STEP_ARN'))
 OT_VECTOR_STEP_ARN = str(os.environ.get('KINGJAMES_OT_EMBEDDING_STEP_ARN'))
 OT_TOC_DATAPATH = parent_directory + '/tocs/KingJamesOT.json' 
 
-
+if 'sidebar_state' not in st.session_state:
+    st.session_state.sidebar_state = 'expanded'
 
 # setup page
 st.set_page_config(
     page_title="Scripture multi-search",
-    page_icon="📚"
+    page_icon="📚",
+    layout="centered",
+    initial_sidebar_state=st.session_state.sidebar_state
     )
 
+
+
+
+
 st.header(body='Scripture multi-search',
-          anchor=None,
-          divider='blue')
+        anchor=None,
+        divider='blue')
 
 
 ### select scripture type ###
@@ -77,22 +84,22 @@ with st.expander(label='Scripture options:', expanded=True):
         bom_col, nt_col, ot_col = st.columns(3)
         with bom_col:
             bom_search_toggle = st.toggle(label='Book of Mormon', 
-                                          value=st.session_state[f"bom_search_toggle"], 
-                                          key='bom_search_toggle',
-                                          on_change=bom_search_toggle_callback)
+                                        value=st.session_state[f"bom_search_toggle"], 
+                                        key='bom_search_toggle',
+                                        on_change=bom_search_toggle_callback)
         with nt_col:
             nt_search_toggle = st.toggle(label='King James - New Testament',
-                                         value=st.session_state[f"nt_search_toggle"],
-                                         key='nt_search_toggle',
-                                         on_change=nt_search_toggle_callback)
+                                        value=st.session_state[f"nt_search_toggle"],
+                                        key='nt_search_toggle',
+                                        on_change=nt_search_toggle_callback)
         with ot_col:
             ot_search_toggle = st.toggle(label='King James - Old Testament',
-                                         value=st.session_state[f"ot_search_toggle"],
-                                         key='ot_search_toggle',
-                                         on_change=ot_search_toggle_callback)
+                                        value=st.session_state[f"ot_search_toggle"],
+                                        key='ot_search_toggle',
+                                        on_change=ot_search_toggle_callback)
 st.write('---')
 
-     
+    
 
 
 ### select search type ###
@@ -225,7 +232,7 @@ with st.form(key='Search Form'):
         text_search_type = 'keyword'
         if st.session_state[f"vector_search_toggle"] == True:
             text_search_type = 'vector'
-         
+        
         # submit button        
         submitted = st.form_submit_button('Submit')
         
@@ -243,8 +250,8 @@ with st.form(key='Search Form'):
                                             st.session_state['STEP_ARN'])
                     # unpack response 
                     result = unpack_response(response,
-                                             chunk_book_lookup,
-                                             kind=text_search_type)
+                                            chunk_book_lookup,
+                                            kind=text_search_type)
     elif st.session_state[f"verse_search_toggle"] == True:         
         # submit button        
         submitted = st.form_submit_button('Submit')
@@ -277,3 +284,23 @@ with st.form(key='Search Form'):
                     result = unpack_response(response,
                                             chunk_book_lookup,
                                             kind='keyword')
+
+
+
+# st.header('scrollable text')
+
+# ### scrollable text ###
+
+# text_content = """
+# <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in odio nec turpis ultricies vehicula ac ut orci. Nullam auctor nisi et est semper blandit. Sed in interdum nulla. Vivamus ut facilisis dui. Fusce nec ex purus. Integer vel feugiat odio, at fermentum lectus.</p>
+# <p>Phasellus fringilla justo eu orci faucibus, id iaculis purus varius. Maecenas a quam vitae urna suscipit egestas. Duis hendrerit, nunc id cursus sollicitudin, quam velit venenatis odio, in elementum ipsum erat vel sapien.</p>
+# <!-- Add more text here -->
+# """
+
+# scrollable_element = f"""
+#     <div class="scroll-container">
+#         {text_content}
+# """
+
+
+# st.markdown(scrollable_element, unsafe_allow_html=True)
