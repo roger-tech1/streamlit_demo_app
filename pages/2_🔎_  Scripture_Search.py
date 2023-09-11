@@ -36,7 +36,8 @@ st.set_page_config(
 
 
 st.header(body='Scripture multi-search',
-        anchor=None)
+        anchor=None,
+        divider='blue')
 
 ### select scripture type ###
 if 'selected_volume' not in st.session_state:
