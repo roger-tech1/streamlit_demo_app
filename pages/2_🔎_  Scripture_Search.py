@@ -27,7 +27,7 @@ if 'sidebar_state' not in st.session_state:
 st.set_page_config(
     page_title="Scripture multi-search",
     page_icon="📚",
-    layout="centered",
+    # layout="centered", 
     initial_sidebar_state=st.session_state.sidebar_state
     )
 
